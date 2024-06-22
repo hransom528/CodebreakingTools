@@ -1,6 +1,6 @@
 # Harris Ransom
-# Digraph Counter
-# 6/19/2024
+# Triple Letter Digraph Counter
+# 6/21/2024
 
 # Imports
 import string
@@ -20,10 +20,8 @@ def digraphFreq(str):
             str = str.replace(char, "")
 
     # Count digraphs
-    for i in range(len(str) - 1):
-        digraph = str[i] + str[i + 1]
-        if str[i] not in alphabet or str[i + 1] not in alphabet:
-            continue
+    for i in range(len(str) - 2):
+        digraph = str[i] + str[i + 1] + str[i + 2]
         if digraph in freqDict:
             freqDict[digraph] += 1
         else:
@@ -42,12 +40,11 @@ def digraphFreq(str):
     fig.tight_layout()
     rects = ax.bar(freqDict.keys(), freqDict.values(), align='center', width=0.5)
     ax.bar_label(rects, freqDict.values())
-    ax.set_xlabel("Digraphs")
+    ax.set_xlabel("Triple Digraphs")
     ax.set_ylabel("Frequency")
-    ax.set_title("Digraph Frequency Analysis")
+    ax.set_title("Triple Letter Digraph Frequency Analysis")
     plt.show()
     
-
 # Main
 def main():
     # Get user input
