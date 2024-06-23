@@ -39,8 +39,13 @@ englishFrequencies = {
     'y': 0.01974,
     'z': 0.00074
 }
-englishFrequencies = dict(sorted(englishFrequencies.items(), key=lambda item: item[1], reverse=True))
+#englishFrequencies = dict(sorted(englishFrequencies.items(), key=lambda item: item[1], reverse=True))
 
+# Rounds the frequencies in a dictionary to a specified number of decimal places
+def roundFreqs(freqDict, places=5):
+    for letter in freqDict:
+        freqDict[letter] = round(freqDict[letter], places)
+    return freqDict
 
 # Frequency Analysis
 def freqAnalysis(text):
@@ -57,28 +62,34 @@ def freqAnalysis(text):
             total += 1
 
     # Sort freqDict
-    freqDict = dict(sorted(freqDict.items(), key=lambda item: item[1], reverse=True))
+    #freqDict = dict(sorted(freqDict.items(), key=lambda item: item[1], reverse=True))
 
     # Print the frequency of each letter
-    for letter in freqDict:
-        print(f"{letter}: {freqDict[letter]}")
+    #for letter in freqDict:
+    #    print(f"{letter}: {freqDict[letter]}")
 
     # Gets relative frequency of each letter
-    print("\nRelative Frequencies:")
+    #print("\nRelative Frequencies:")
     frequencies = []
     for letter in freqDict:
         letterFrequency = (freqDict[letter] / float(total)) #* 100
         frequencies.append(letterFrequency)
-        print(f"{letter}: {letterFrequency:.4f}")
+        #print(f"{letter}: {letterFrequency:.4f}")
 
-    # Plot the relative frequencies
+    return freqDict, frequencies
+
+# Plot the relative frequencies
+def plotFreqs(freqDict, letterFrequencies):
+    # Set up subplots
     fig, (ax1, ax2) = plt.subplots(2)
 
-    rects = ax1.bar(range(len(freqDict)), frequencies, align='center')
+    # Plots relative frequencies from the text
+    rects = ax1.bar(range(len(freqDict)), letterFrequencies, align='center')
     ax1.set_xticks(range(len(freqDict)), list(freqDict.keys()))
     ax1.set_title("Text Letter Frequencies")
-    ax1.bar_label(rects, [format(frequency, '.2f') for frequency in frequencies])
+    ax1.bar_label(rects, [format(frequency, '.2f') for frequency in letterFrequencies])
 
+    # Plots relative frequencies of the English alphabet
     rects2 = ax2.bar(range(len(englishFrequencies)), list(englishFrequencies.values()), align='center')
     ax2.set_xticks(range(len(englishFrequencies)), list(englishFrequencies.keys()))
     ax2.set_title("English Letter Frequencies")
@@ -90,7 +101,14 @@ def main():
     # Get user input
     print("Enter the text you want to analyze: ")
     text = input().lower().strip()
-    freqAnalysis(text)
+
+    # Perform frequency analysis
+    freqDict, letterFrequencies = freqAnalysis(text)
+    #print(freqDict)
+    #print(letterFrequencies)
+
+    # Plot the results
+    plotFreqs(freqDict, letterFrequencies)
 
 # Dunder main
 if __name__ == "__main__":
