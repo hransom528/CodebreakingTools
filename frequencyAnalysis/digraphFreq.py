@@ -9,6 +9,17 @@ import matplotlib.pyplot as plt
 # Defines character alphabet
 alphabet = string.ascii_uppercase
 
+# Plot digraph frequency analysis
+def plotDigraphFreq(freqDict):
+    fig, ax = plt.subplots(figsize=(20, 3))
+    fig.tight_layout()
+    rects = ax.bar(freqDict.keys(), freqDict.values(), align='center', width=0.5)
+    ax.bar_label(rects, freqDict.values())
+    ax.set_xlabel("Digraphs")
+    ax.set_ylabel("Frequency")
+    ax.set_title("Digraph Frequency Analysis")
+    plt.show()
+
 # Count the frequency of each digraph in the text
 def digraphFreq(str):
     freqDict = {}
@@ -38,15 +49,9 @@ def digraphFreq(str):
         print(f"{digraph}: {freqDict[digraph]}")
 
     # Plot digraph frequency analysis
-    fig, ax = plt.subplots(figsize=(20, 3))
-    fig.tight_layout()
-    rects = ax.bar(freqDict.keys(), freqDict.values(), align='center', width=0.5)
-    ax.bar_label(rects, freqDict.values())
-    ax.set_xlabel("Digraphs")
-    ax.set_ylabel("Frequency")
-    ax.set_title("Digraph Frequency Analysis")
-    plt.show()
-    
+    plotDigraphFreq(freqDict)
+
+    return freqDict
 
 # Main
 def main():

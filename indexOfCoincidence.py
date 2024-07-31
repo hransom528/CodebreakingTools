@@ -29,7 +29,7 @@ def IndexOfCoincidence(inputStr):
         ioc += (float (freq * (freq - 1)) / float(total * (total - 1)))
 
     # Output the Index of Coincidence
-    print(f"Index of Coincidence: {ioc}")
+    #print(f"Index of Coincidence: {ioc}")
     return ioc
 
 # Main
@@ -40,6 +40,7 @@ def main():
 
     # Calculate the Index of Coincidence
     ioc = IndexOfCoincidence(text)
+    print(f"Index of Coincidence: {ioc}")
     if (ioc > 0.06) and (ioc < 0.07):
         print("The text is likely English or a substitution cipher.")
     else:
