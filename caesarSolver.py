@@ -4,6 +4,10 @@
 
 # Imports
 import string
+from sys import path
+
+path.append('frequencyAnalysis')
+from chiSquare import chiSquare
 
 # Defines character alphabet
 alphabet = string.ascii_lowercase
@@ -20,14 +24,16 @@ def shift_string(inputStr, offset):
 
 # Caesar Cipher Solver
 def caesarSolver(text):
+    print("Key \t Decoded Text ".ljust(len(text) + 13) + "Chi-Squared")
     for base in range (0, 26):
-        print(f"{base} {shift_string(text, base)}")
+        shiftedString = shift_string(text, base)
+        print(f"{base} \t {shiftedString} \t {chiSquare(shiftedString)}")
 
 # MAIN
 def main():
     # Get user input
     print("Enter the ciphertext: ")
-    text = input().lower()
+    text = input().lower().strip()
     caesarSolver(text)
 
 # Dunder main
