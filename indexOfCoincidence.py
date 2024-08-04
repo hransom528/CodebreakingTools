@@ -44,7 +44,7 @@ def main():
     if (ioc > 0.06) and (ioc < 0.07):
         print("The text is likely English or a substitution cipher.")
     else:
-        print("The text is likely not English, or is ciphered.")
+        print("The text is likely not English, or is complexly ciphered.")
 
 # Dunder main
 if __name__ == "__main__":
