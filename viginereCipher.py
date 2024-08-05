@@ -69,6 +69,9 @@ def main():
 	elif args.decode:
 		plaintext = decode(key, text)
 		print(f"Plaintext: {plaintext}")
+	else:
+		print("Please specify whether you want to encode or decode the text")
+		return
 
 # Dunder main
 if __name__ == "__main__":

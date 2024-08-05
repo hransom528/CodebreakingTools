@@ -104,7 +104,7 @@ def main():
 
     # Perform frequency analysis
     freqDict, letterFrequencies = freqAnalysis(text)
-    #print(freqDict)
+    print(freqDict)
     #print(letterFrequencies)
 
     # Plot the results
