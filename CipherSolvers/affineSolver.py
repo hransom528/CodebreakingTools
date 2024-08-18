@@ -8,7 +8,7 @@ import re
 from sys import path
 path.append('../frequencyAnalysis')
 import ngramScore
-from pycipher import Affine
+from pycipher import Affine # type: ignore
 
 # Define key alphabet
 a = [1,3,5,7,9,11,15,17,19,21,23,25]

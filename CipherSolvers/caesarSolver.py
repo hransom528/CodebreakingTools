@@ -25,16 +25,23 @@ def shift_string(inputStr, offset):
 # Caesar Cipher Solver
 def caesarSolver(text):
     print("Key \t Decoded Text ".ljust(len(text) + 13) + "Chi-Squared")
+    bestString = ""
+    bestChi = 9e999
     for base in range (0, 26):
         shiftedString = shift_string(text, base)
         print(f"{base} \t {shiftedString} \t {chiSquare(shiftedString)}")
+        if chiSquare(shiftedString) < bestChi:
+            bestChi = chiSquare(shiftedString)
+            bestString = shiftedString
+    return bestString, bestChi
 
 # MAIN
 def main():
     # Get user input
     print("Enter the ciphertext: ")
     text = input().lower().strip()
-    caesarSolver(text)
+    bestString, bestChi = caesarSolver(text)
+    print(f"\nBest Decoded Text: {bestString} \t Chi-Squared: {bestChi}")
 
 # Dunder main
 if __name__ == "__main__":
