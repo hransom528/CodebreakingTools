@@ -5,8 +5,8 @@
 # Imports
 import string
 from sys import path
-
-path.append('frequencyAnalysis')
+path.append('../frequencyAnalysis')
+path.append('../')
 from chiSquare import chiSquare
 
 # Defines character alphabet
