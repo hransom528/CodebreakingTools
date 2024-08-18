@@ -13,6 +13,8 @@ def chiSquare(text):
     for char in englishFrequencies.keys():
         observed = text.count(char)
         expected = n * englishFrequencies[char]
+        if (not expected):
+            continue
         chiSquareStat += (((observed - expected) ** 2) / expected)
 
     return chiSquareStat
