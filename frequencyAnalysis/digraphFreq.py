@@ -48,9 +48,6 @@ def digraphFreq(str):
     for digraph in freqDict:
         print(f"{digraph}: {freqDict[digraph]}")
 
-    # Plot digraph frequency analysis
-    plotDigraphFreq(freqDict)
-
     return freqDict
 
 # Main
@@ -58,7 +55,12 @@ def main():
     # Get user input
     print("Enter the text you want to analyze: ")
     text = input().upper().strip()
-    digraphFreq(text)
+
+    # Count the frequency of each digraph in the text
+    freqDict = digraphFreq(text)
+
+    # Plot digraph frequency analysis
+    plotDigraphFreq(freqDict)
 
 # Dunder main
 if __name__ == "__main__":

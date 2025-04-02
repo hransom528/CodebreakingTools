@@ -5,10 +5,13 @@
 # Imports
 import string
 import random
-
-import sys
-sys.path.insert(0, '../frequencyAnalysis')
+from sys import path
+path.insert(0, '../frequencyAnalysis')
+path.append('../')
 import freqAnalysis
+import ngramScore
+import indexOfCoincidence
+#from chiSquare import chiSquare
 
 # Defines character alphabet
 alphabet = string.ascii_lowercase
@@ -62,7 +65,7 @@ def substituteText(text, subTable):
 	return subText
 
 # Calculate the distance between the frequency of the text and the expected frequency
-def calcDistance(freqDict, expectedFrequencies):
+def calcFreqDistance(freqDict, expectedFrequencies):
 	# Calculate the distance
 	distance = 0
 	for letter in freqDict:
@@ -97,14 +100,20 @@ def main():
 	text = input().lower().strip()
 	
 	# Format text
+	# TODO: Keep track of where spaces are removed
 	text = text.replace(" ", "")
 	text = text.replace("\n", "")
 	print(f"Length: {len(text)}")
-	#print(text)
+
+	# Check if text is a substitution cipher
+	ioc = indexOfCoincidence.IndexOfCoincidence(text)
+	print(f"Index of Coincidence: {ioc}")
+	if (ioc < 0.06):
+		print("The text is likely not a substitution cipher.")
+		return
 
 	# Generate an initial random substitution table
 	subTable = genSubTable()
-	#print(subTable)
 
 	# Print the text with the initial substitution table
 	subText = substituteText(text, subTable)
@@ -117,7 +126,7 @@ def main():
 	# Calculate the expected frequencies
 	expectedFrequencies = {}
 	sum = 0
-	roundedEnglishFrequencies = freqAnalysis.roundFreqs(freqAnalysis.englishFrequencies, 4)
+	roundedEnglishFrequencies = freqAnalysis.roundFreqs(freqAnalysis.englishFrequencies, 2)
 	#print("Expected Frequencies:")
 	for letter in freqAnalysis.englishFrequencies:
 		expectedFrequencies[letter] = round(roundedEnglishFrequencies[letter] * len(text))
@@ -129,16 +138,16 @@ def main():
 		return
 
 	# Calculate the distance between the frequency of the text and the expected frequency
-	fitness = calcDistance(freqDict, expectedFrequencies)
+	fitness = calcFreqDistance(freqDict, expectedFrequencies)
 	print(f"Initial Fitness: {fitness}")
 
 	# Perform random swaps and check if the fitness improves
 	#iterations = 200000
-	while (fitness > 12):
+	while (fitness > 11):
 		newSubTable = permute(subTable)
 		newSubText = substituteText(text, newSubTable)
 		newFreqDict, newLetterFrequencies = freqAnalysis.freqAnalysis(newSubText)
-		newFitness = calcDistance(newFreqDict, expectedFrequencies)
+		newFitness = calcFreqDistance(newFreqDict, expectedFrequencies)
 		#print(f"New Fitness: {newFitness}")
 		if newFitness < fitness:
 			#print("Fitness Improved!")
@@ -153,7 +162,6 @@ def main():
 		print(f"{char}: {subTable[char]}")
 	print("Decoded Text:")
 	print(substituteText(text, subTable))
-	
 	
 # Dunder main
 if __name__ == "__main__":
